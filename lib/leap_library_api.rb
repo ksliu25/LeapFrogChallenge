@@ -3,11 +3,6 @@ require 'json'
 
 module LeapFrog
 
-	def self.propensity(url)
-		json_hash = search(url)
-		json_hash.is_a?(Hash) ? json_hash["propensity"] : "No response from url"
-	end
-
 	def self.search(url)
 		retries = 3
 		begin
@@ -23,6 +18,11 @@ module LeapFrog
 		end
 		return "No response from url" unless json_object
 		return JSON.parse(json_object)
+	end
+	
+	def self.propensity(url)
+		json_hash = search(url)
+		json_hash.is_a?(Hash) ? json_hash["propensity"] : "No response from url"
 	end
 
 end
