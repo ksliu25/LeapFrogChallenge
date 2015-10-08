@@ -3,6 +3,12 @@ require 'json'
 
 module LeapFrog
 
+	def self.propensity(url)
+		json_object = search(url)
+		hash = JSON.parse(json_object)
+		return hash["propensity"]
+	end
+
 	def self.search(url)
 		retries = 3
 		begin
@@ -16,18 +22,7 @@ module LeapFrog
 		  sleep 120
 		  retry
 		end
-		return propensity(json_object)
+		return json_object
 	end
-
-	def self.propensity(json)
-		hash = JSON.parse(json)
-		return hash["propensity"]
-	end
-
-	class << self
-  	private :propensity
-  end
-
-
 
 end
