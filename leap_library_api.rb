@@ -4,9 +4,8 @@ require 'json'
 module LeapFrog
 
 	def self.propensity(url)
-		json_object = search(url)
-		hash = JSON.parse(json_object)
-		return hash["propensity"]
+		json_hash = search(url)
+		return json_hash["propensity"]
 	end
 
 	def self.search(url)
@@ -22,7 +21,7 @@ module LeapFrog
 		  sleep 120
 		  retry
 		end
-		return json_object
+		return JSON.parse(json_object)
 	end
 
 end
