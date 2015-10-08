@@ -5,7 +5,7 @@ module LeapFrog
 
 	def self.propensity(url)
 		json_hash = search(url)
-		return json_hash["propensity"]
+		json_hash.is_a?(Hash) ? json_hash["propensity"] : "No response from url"
 	end
 
 	def self.search(url)
@@ -21,6 +21,7 @@ module LeapFrog
 		  sleep 120
 		  retry
 		end
+		return "No response from url" unless json_object
 		return JSON.parse(json_object)
 	end
 
