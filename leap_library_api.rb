@@ -15,7 +15,8 @@ module LeapFrog
 		  retries -= 1
 		  sleep 120
 		  retry
-		end 
+		end
+		return propensity(json_object)
 	end
 
 	def self.propensity(json)
