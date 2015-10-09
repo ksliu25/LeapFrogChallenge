@@ -9,11 +9,9 @@ module LeapFrog
 			uri = URI("#{url}")
 			json_object = Net::HTTP.get(uri)
 		rescue Exception => e
-		  # response = error.io
-		  # puts e
 		  puts "Retrying #{retries} more times"
 		  retries -= 1
-		  sleep(2)
+		  sleep(1)
 		  retry unless retries < 1
 		end
 		return "No response from url" unless json_object

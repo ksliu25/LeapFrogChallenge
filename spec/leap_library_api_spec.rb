@@ -8,12 +8,11 @@ describe LeapFrog do
 			stub_request(:get, url)
 			.with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'not_real.com', 'User-Agent'=>'Ruby'}).
          to_return(:status => 200, :body => '{"propensity": 0.26532, "ranking": "C"}', :headers => {})
-			# .with(:body => '{"propensity": 0.26532, "ranking": "C"}')
 			expect(LeapFrog.search(url)).to be_a(Hash)
 		end
 
-		it "should fail gracefully after making 3 attempts" do
-			expect(LeapFrog.search(url).to be_a(String))
+		it "should return a string after making 3 attempts" do			
+			expect(LeapFrog.search(url)).to be_a(String)
 		end
 
 		
