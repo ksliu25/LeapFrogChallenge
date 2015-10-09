@@ -10,7 +10,7 @@ To test this challenge you will need to pulldown the repo and either bundle inst
 or
 <pre><code>gem install webmock</code></pre>
 
-Then simply run rspec spec in the root directory to run the tests.
+Then simply run rspec spec in the root directory to run the tests. If the API endpoint times out, the library will make 3 attempts spaced 1 second apart to prevent excessive API hitting. I have had the misfortunate of not listening and angering Reddit's API...
 
 ##Usage of library
 
