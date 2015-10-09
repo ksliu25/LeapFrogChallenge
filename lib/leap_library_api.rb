@@ -6,7 +6,7 @@ module LeapFrog
 	def self.search(url)
 		retries = 3
 		begin
-			uri = URI("url")
+			uri = URI("#{url}")
 			json_object = Net::HTTP.get(uri)
 		rescue OpenURI::HTTPError => error
 		  response = error.io
