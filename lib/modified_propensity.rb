@@ -1,5 +1,5 @@
 require_relative 'leap_library_api'
 
 def modified_propensity(url)
-	puts LeapFrog.propensity(url) + 2
+	puts url.is_a?(Fixnum) ? LeapFrog.propensity(url) + 2 : LeapFrog.propensity(url)
 end
