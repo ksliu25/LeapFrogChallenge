@@ -11,7 +11,16 @@ describe LeapFrog do
 			expect(LeapFrog.search(url)).to be_a(Hash)
 		end
 
-		it "should return a string after making 3 attempts" do			
+		it "should return the error message if it is an HTTP error" do
+			stub_request(:get, url)
+			.with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'not_real.com', 'User-Agent'=>'Ruby'}).
+         to_return(:status => [500, "Internal Server Error"])
+			expect(LeapFrog.search(url)).to eq("No response from API")
+		end
+
+
+		it "should return a string after making 3 attempts to timeout" do			
+			stub_request(:get, url).to_raise(Timeout::Error)
 			expect(LeapFrog.search(url)).to eq("No response from API")
 		end
 
@@ -26,6 +35,9 @@ describe LeapFrog do
 		end
 
 		it "should return a string if the search fails" do
+			stub_request(:get, url)
+			.with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'not_real.com', 'User-Agent'=>'Ruby'}).
+         to_return(:status => [500, "Internal Server Error"])
 			expect(LeapFrog.propensity(url)).to eq("No response from API")
 		end
 	end
