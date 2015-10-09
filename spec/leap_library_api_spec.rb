@@ -12,6 +12,10 @@ describe LeapFrog do
 			expect(LeapFrog.search(url)).to be_a(Hash)
 		end
 
+		it "should fail gracefully after making 3 attempts" do
+			expect(LeapFrog.search(url).to be_a(String))
+		end
+
 		
 	end
 
