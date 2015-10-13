@@ -13,12 +13,18 @@ HTTP_ERRORS = [
 	Timeout::Error,
 ]
 
-module LeapFrog
+class LeapFrog
 
-	def self.search(url)
+	def initialize(args={})
+		@income = args[:income].to_s
+		@zipcode = args[:zipcode].to_s
+		@age = args[:age].to_s
+	end
+
+	def search
 		retries = 3
 		begin
-			uri = URI("#{url}")
+			uri = URI("#{formatted_url}")
 			json_object = Net::HTTP.get(uri)
 		rescue *HTTP_ERRORS => e
 			if e == Timeout::Error || Net::HTTPGatewayTimeOut
@@ -34,10 +40,11 @@ module LeapFrog
 		return "No response from API" unless json_object
 		return JSON.parse(json_object)
 	end
-	
-	def self.propensity(url)
-		json_hash = search(url)
-		json_hash.is_a?(Hash) ? json_hash["propensity"] : "No response from API"
+
+	private
+
+	def formatted_url
+		"http://not_real.com/customer_scoring?income=#{@income}&zipcode=#{@zipcode}&age=#{@age}"
 	end
 
 end
