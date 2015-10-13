@@ -14,17 +14,24 @@ Then simply run rspec spec in the root directory to run the tests. If the API en
 
 ##Usage of library
 
-To actually use this library, just require the file directly and call the search method with a url to a specific API
-<pre><code> LeapFrog.search("http://not_real.com/customer_scoring?income=50000&zipcode=60201&age=35") </code></pre>
+To actually use this library, just require the file directly and instantiate a new class of LeapFrog with an argument hash of parameters. Since this is the direct library, there is no graceful failing or error catching for the initialization, that is handled by the program.
+<pre><code> query = LeapFrog.new(:income => 50000, :zipcode => 60201, :age => 35) </code></pre>
 
-For a successful API call, it will return the JSON object for further processing. You can also call 
-<pre><code> LeapFrog.propensity("http://not_real.com/customer_scoring?income=50000&zipcode=60201&age=35") </code></pre>
-
-to return the propensity of the specific JSON object should you know EXACTLY what will return.
+For a successful API call, it will return the JSON object for further processing. To do this, call search on your LeapFrog instance
+<pre><code> query.search #=> { "propensity": 0.26532, "ranking": "C" } </code></pre>
 
 In the case of failures the module will simply return a string specifying the failure of the API. However, for specific cases of shakey-interconnectivity, the library will attempt 3 times to reach the host.
 
 ##Usage of program
 
-To use the program I chose to use a simple script. Simply run the script using runner code or replicate the method for use in a larger code base. 
+To make use of the program, you MUST provide a hash argument. The program will provide some context should you fail to do this. Otherwise, it will print out the propensity to standard output.
 
+<pre><code> modified_propensity(:income => 50000, :zipcode => 60201, :age => 35) #=> 2.26532 </code></pre>
+
+With a key missing: 
+
+<pre><code> modified_propensity(:income => 50000, :zipcode => 60201) #=> "You must provide a hash with income, zipcode, and age! Error: 'key not found: :age'" </code></pre>
+
+With an argument other than a hash:
+
+<pre><code> modified_propensity(50000) #=> "You must provide a hash with income, zipcode, and age! Error: 'undefined method `fetch' for 50000:Fixnum'" </code></pre>
