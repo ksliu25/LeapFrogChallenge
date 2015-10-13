@@ -1,5 +1,10 @@
 require_relative 'leap_library_api'
 
-def modified_propensity(url)
-	puts url.is_a?(Fixnum) ? LeapFrog.propensity(url) + 2 : LeapFrog.propensity(url)
+def modified_propensity(customer_hash_args)
+	begin
+		query = LeapFrog.new(customer_hash_args)
+	rescue KeyError, ArgumentError, NoMethodError => e
+		return "You must provide a hash with income, zipcode, and age! Error: '#{e}'"
+	end
+	puts (query.search).is_a?(Hash) ? query.search["propensity"] + 2 : query.search
 end
