@@ -16,9 +16,9 @@ HTTP_ERRORS = [
 class LeapFrog
 
 	def initialize(args={})
-		@income = args[:income].to_s
-		@zipcode = args[:zipcode].to_s
-		@age = args[:age].to_s
+		@income = args.fetch(:income).to_s
+		@zipcode = args.fetch(:zipcode).to_s
+		@age = args.fetch(:age).to_s
 	end
 
 	def search
