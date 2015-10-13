@@ -20,7 +20,7 @@ To actually use this library, just require the file directly and instantiate a n
 For a successful API call, it will return the JSON object for further processing. To do this, call search on your LeapFrog instance
 <pre><code> query.search #=> { "propensity": 0.26532, "ranking": "C" } </code></pre>
 
-In the case of failures the module will simply return a string specifying the failure of the API. However, for specific cases of shakey-interconnectivity, the library will attempt 3 times to reach the host.
+In the case of failures the class will simply return a string specifying the failure of the API. However, for specific cases of shakey-interconnectivity, the library will attempt 3 times to reach the host.
 
 ##Usage of program
 
